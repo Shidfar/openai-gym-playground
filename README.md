@@ -1,1 +1,1 @@
-# openai-gym-playground
+# Open-AI gym playground
