@@ -2,4 +2,3 @@ matplotlib
 ipywidgets
 IPython
 JSAnimation
-Tkinter
