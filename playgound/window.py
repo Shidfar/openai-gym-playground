@@ -1,22 +1,26 @@
 from tkinter import *
+import gym
 
 root = Tk()
 frame = Frame(root)
 frame.pack()
 
+env = gym.make('CartPole-v0')
+
+
 bottomframe = Frame(root)
-bottomframe.pack( side = BOTTOM )
+bottomframe.pack(side = BOTTOM)
 
 redbutton = Button(frame, text="Red", fg="red")
-redbutton.pack( side = LEFT)
+redbutton.pack(side = LEFT)
 
 greenbutton = Button(frame, text="Brown", fg="brown")
-greenbutton.pack( side = LEFT )
+greenbutton.pack(side = LEFT)
 
 bluebutton = Button(frame, text="Blue", fg="blue")
-bluebutton.pack( side = LEFT )
+bluebutton.pack(side = LEFT)
 
 blackbutton = Button(bottomframe, text="Black", fg="black")
-blackbutton.pack( side = BOTTOM)
+blackbutton.pack(side = BOTTOM)
 
 root.mainloop()
