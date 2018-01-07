@@ -1,10 +1,9 @@
 import gym
 import numpy
 from time import sleep
+import getch
 
-# import np
-# import getch
-
+# General episode runner
 def run_episode(env, parameters):
     observation = env.reset()
     env.render()
@@ -20,7 +19,59 @@ def run_episode(env, parameters):
             break
     return totalreward
 
+def manual_control(env):
+    for t in range(200):
+        env.render()
+        # print(observation)
+        key_press = getch.getch()
+        print(key_press)
+        action = 0
+        if key_press == 'd':
+            action = 1
+        if key_press == 'a':
+            action = 0
+        observation, reward, done, info = env.step(action)
+        print(" [ action ] ", action)
+        print(" [ observation ] ", observation)
+        print(" [ reward ] ", reward)
+        print(" [ info ] ", info)
+        print(" [ done ] ", done)
+        if done:
+            print("Episode finished after {} timesteps".format(t + 1))
+            break
 
+def random_search(env):
+    best_params = None
+    best_reward = 0
+    for _ in range(10000):
+        parameters = (numpy.random.rand(4) * 2 - 1)
+        reward = run_episode(env, parameters)
+        print(reward)
+        if reward > best_reward:
+            best_reward = reward
+            best_params = parameters
+            # considered solved if the agent lasts 200 timesteps
+            if reward == 200:
+                print("[ best params ]", best_params)
+                print("[ best reward ]", best_reward)
+                break
+
+def hill_climbing(env):
+    noise_scaling = 0.1
+    parameters = numpy.random.rand(4) * 2 - 1
+    bestreward = 0
+    for _ in range(10000):
+        newparams = parameters + (numpy.random.rand(4) * 2 - 1) * noise_scaling
+        reward = 0
+        run = run_episode(env, newparams)
+        if reward > bestreward:
+            bestreward = reward
+            parameters = newparams
+            if reward == 200:
+                break
+
+
+env = gym.make('CartPole-v0')
 # print(" ------------------------ ")
 #
 # print(env.action_space)
@@ -31,50 +82,7 @@ def run_episode(env, parameters):
 #
 # print(" ------------------------ ")
 
-# for i_episode in range(20):
-# observation = env.reset()
-# print(observation)
-# thetha1 = (observation) = env.reset()
-# thetha2 = numpy.random.rand(4) * 2 - 1
-# print(numpy.matmul(thetha1, thetha2))
-
-env = gym.make('CartPole-v0')
-# parameters = numpy.random.rand(4) * 2 - 1
-# print(run_episode(env, parameters))
-
-bestParams = None
-bestReward = 0
-for _ in range(10000):
-    parameters = numpy.random.rand(4) * 2 - 1
-    reward = run_episode(env, parameters)
-    print(reward)
-    if reward > bestReward:
-        bestReward = reward
-        bestParams = parameters
-        # considered solved if the agent lasts 200 timesteps
-        if reward == 200:
-            print("[ best params ]", bestParams)
-            print("[ best reward ]", bestReward)
-            break
-
-# for t in range(200):
-#     env.render()
-#     # print(observation)
-#     # key_press = getch.getch()
-#     # print(key_press)
-#     action = 0 if numpy.matmul(thetha1, thetha2) < 0 else 1
-#     # if key_press == 'd':
-#     #     action = 1
-#     # if key_press == 'a':
-#     #     action = 0
-#     observation, reward, done, info = env.step(action)
-#     thetha2 = thetha1
-#     thetha1 = observation
-#     # print(" [ action ] ", action)
-#     print(" [ observation ] ", observation)
-#     print(" [ reward ] ", reward)
-#     # print(" [ info ] ", info)
-#     print(" [ done ] ", done)
-#     if done:
-#         print("Episode finished after {} timesteps".format(t+1))
-#         break
+# Start any type of agent
+# manual_control(env)
+# random_search(env)
+hill_climbing(env)
