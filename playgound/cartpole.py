@@ -2,6 +2,7 @@ import gym
 import numpy
 from time import sleep
 import getch
+import tensorflow
 
 # General episode runner
 def run_episode(env, parameters):
@@ -88,8 +89,8 @@ def hill_climbing(env):
         else :
             noise_scaling += 0.01
 
-
 env = gym.make('CartPole-v0')
+
 # print(" ------------------------ ")
 #
 # print(env.action_space)
@@ -100,7 +101,16 @@ env = gym.make('CartPole-v0')
 #
 # print(" ------------------------ ")
 
+print(" \n\n\n\n\n ")
+print("  -------------------------------- ")
+print(" |  WELCOME SHIDFAR's PLAYGROUND  |")
+print("  -------------------------------- ")
+print(" \n\n\n ")
+
 # Start any type of agent
 # manual_control(env)
 # random_search(env)
-hill_climbing(env)
+# hill_climbing(env)
+
+print(" \n\n\n ")
+
