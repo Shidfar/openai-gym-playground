@@ -2,5 +2,3 @@ matplotlib
 ipywidgets
 IPython
 JSAnimation
-numpy
-tensorflow
